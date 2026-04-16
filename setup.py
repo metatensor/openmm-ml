@@ -39,6 +39,9 @@ setup(
     packages=find_packages(),
     zip_safe=False,
     install_requires=['numpy', 'openmm >= 8.5'],
+    extras_require={
+        'metatomic': ['metatomic-torch', 'metatrain'],
+    },
     entry_points={
         'openmmml.potentials': [
             'aimnet2 = openmmml.models.aimnet2potential:AIMNet2PotentialImplFactory',
@@ -63,6 +66,12 @@ setup(
             'orb-v3-conservative-inf-omat = openmmml.models.orbpotential:OrbPotentialImplFactory',
             'orb-v3-conservative-omol = openmmml.models.orbpotential:OrbPotentialImplFactory',
             'deepmd = openmmml.models.deepmdpotential:DeepmdPotentialImplFactory',
+            'metatomic = openmmml.models.metatomicpotential:MetatomicPotentialImplFactory',
+            'pet-mad-1-s = openmmml.models.metatomicpotential:MetatomicPotentialImplFactory',
+            'pet-mad-1.5-xs = openmmml.models.metatomicpotential:MetatomicPotentialImplFactory',
+            'pet-mad-1.5-s = openmmml.models.metatomicpotential:MetatomicPotentialImplFactory',
+            'pet-spice-s = openmmml.models.metatomicpotential:MetatomicPotentialImplFactory',
+            'pet-spice-l = openmmml.models.metatomicpotential:MetatomicPotentialImplFactory',
             'torchmdnet = openmmml.models.torchmdnetpotential:TorchMDNetPotentialImplFactory',
             'aceff-1.0 = openmmml.models.torchmdnetpotential:TorchMDNetPotentialImplFactory',
             'aceff-1.1 = openmmml.models.torchmdnetpotential:TorchMDNetPotentialImplFactory',
