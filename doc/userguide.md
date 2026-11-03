@@ -388,6 +388,26 @@ Mixed ML/MM systems use mechanical embedding. `mlLongRange` is not accepted.
 A model with an infinite `interaction_range` is not supported for a mixed
 system. A pure ML system is allowed, so `createSystem()` still accepts it.
 
+#### metatomic-core
+
+`MLPotential("metatomic-core")` runs any model behind the metatomic-core C API
+through `metatomic.execute_model`: an in-process `metatomic.BaseModel` (such as a
+`JaxModel` or `NumpyModel`), a TorchScript `.pt` loaded through the metatomic-torch
+plugin (`LegacyModel`), or a model exported by a native plugin library.  The system
+is passed in nm and the energy requested in kJ/mol, so metatomic-core performs every
+unit conversion.  Evaluation runs on the CPU, once per step, through a `PythonForce`.
+
+| Argument | Description |
+| --- | --- |
+| `model` | A `metatomic.BaseModel`, or a path / model name for `metatomic.load_model()`. |
+| `plugins` | Shared libraries to pass to `metatomic.load_plugin()` before loading the model, for example `metatomic_torch.utils.plugin_path` for `.pt` files. |
+| `pluginName`, `modelOptions` | Passed to `metatomic.load_model()`. |
+| `checkConsistency`, `nonConservative`, `variants` | As for `metatomic` (no `energy_uncertainty` warning yet). |
+| `neighborSkin` | Verlet skin of the vesin pair lists, in nm.  The default is 0.2. |
+
+`createSystem()` and `createMixedSystem()` accept `charge`, `multiplicity`,
+`atomTypes` and `pbc`, as above.
+
 ## Embeddings
 
 For mixed ML/MM systems created with `createMixedSystem()`, the interactions within the ML subset will be computed by
